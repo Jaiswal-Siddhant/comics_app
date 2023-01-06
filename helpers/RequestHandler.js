@@ -9,5 +9,6 @@ exports.fetchData = async () => {
 		}),
 	});
 	const data = await data2.json();
+	
 	return data;
 };

@@ -7,6 +7,7 @@ const Filters = () => {
 			<Text>Filters Here</Text>
 		</View>
 	);
+	
 };
 
 export default Filters;

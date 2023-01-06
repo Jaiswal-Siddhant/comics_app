@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
 	mt10: {
 		marginTop: 10,
 	},
+	
 });
 
 export default List;

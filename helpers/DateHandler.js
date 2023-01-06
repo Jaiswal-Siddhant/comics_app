@@ -15,4 +15,5 @@ exports.getMonth = (str) => {
 exports.getYear = (str) => {
 	let d = new Date(str);
 	return d.getFullYear();
+	
 };
