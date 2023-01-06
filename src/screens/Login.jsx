@@ -7,8 +7,13 @@ import {
 	View,
 } from 'react-native';
 import HideKeyboard from '../components/HideKeyboard';
+import { LoginHandler } from '../../helpers/AuthHandler';
 
 const Login = ({ navigation }) => {
+	const [email, setEmail] = React.useState('');
+	const [password, setPassword] = React.useState('');
+	const [error, setError] = React.useState('');
+
 	return (
 		<View style={{ display: 'flex', width: '100%', height: '100%' }}>
 			<HideKeyboard>
@@ -18,18 +23,37 @@ const Login = ({ navigation }) => {
 							placeholder='Email Address*'
 							keyboardType='email-address'
 							textContentType='emailAddress'
-							style={{ fontSize: 17 }}
+							style={{ fontSize: 17, padding: 5 }}
+							onChangeText={(val) => {
+								setEmail(val);
+							}}
 						/>
 					</View>
 					<View style={styles.inputContainer}>
 						<TextInput
 							placeholder='Password*'
-							style={{ fontSize: 17 }}
+							style={{ fontSize: 17, padding: 5 }}
 							secureTextEntry
 							autoCorrect={false}
 							multiline={false}
+							onChangeText={(val) => {
+								setPassword(val);
+							}}
 						/>
 					</View>
+					{error ? (
+						<View style={{}}>
+							<Text
+								style={{
+									...styles.registerText,
+									color: 'tomato',
+									paddingStart: 10,
+								}}>
+								{error}
+							</Text>
+						</View>
+					) : null}
+
 					<TouchableOpacity
 						style={{
 							...styles.inputContainer,
@@ -37,7 +61,15 @@ const Login = ({ navigation }) => {
 							backgroundColor: 'black',
 						}}
 						onPress={() => {
+							// LoginHandler(email, password).then((response) => {
+							// 	console.log(response);
+							// 	if (response) {
+							// 		setError('');
 							navigation.replace('HomeScreen');
+							// } else {
+							// 	setError('Invalid Email or Password');
+							// }
+							// });
 						}}>
 						<Text style={styles.loginBtn}>Login</Text>
 					</TouchableOpacity>
@@ -74,7 +106,7 @@ const styles = StyleSheet.create({
 		marginBottom: 5,
 	},
 	loginBtn: {
-		fontSize: 17,
+		fontSize: 18,
 		color: '#fff',
 		fontWeight: '600',
 	},

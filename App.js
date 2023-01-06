@@ -15,7 +15,7 @@ const options = {
 };
 
 const App = () => {
-	const isLoggedIn = false;
+	const isLoggedIn = true;
 
 	return (
 		<NavigationContainer>

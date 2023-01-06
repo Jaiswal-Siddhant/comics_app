@@ -15,6 +15,14 @@ const Register = ({ navigation }) => {
 				<View style={{ backgroundColor: '#fff', flex: 5 }}>
 					<View style={styles.inputContainer}>
 						<TextInput
+							placeholder='User Name*'
+							keyboardType='email-address'
+							textContentType='emailAddress'
+							style={{ fontSize: 17 }}
+						/>
+					</View>
+					<View style={styles.inputContainer}>
+						<TextInput
 							placeholder='Email Address*'
 							keyboardType='email-address'
 							textContentType='emailAddress'
