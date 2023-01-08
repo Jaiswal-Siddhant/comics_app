@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
 	StyleSheet,
 	Text,
@@ -8,11 +8,13 @@ import {
 } from 'react-native';
 import HideKeyboard from '../components/HideKeyboard';
 import { LoginHandler } from '../../helpers/AuthHandler';
+import { AuthContext } from '../components/context';
 
 const Login = ({ navigation }) => {
 	const [email, setEmail] = React.useState('');
 	const [password, setPassword] = React.useState('');
 	const [error, setError] = React.useState('');
+	const { signIn } = useContext(AuthContext);
 
 	return (
 		<View style={{ display: 'flex', width: '100%', height: '100%' }}>
@@ -61,6 +63,7 @@ const Login = ({ navigation }) => {
 							backgroundColor: 'black',
 						}}
 						onPress={() => {
+							// Pass email pass to login handler
 							// LoginHandler(email, password).then((response) => {
 							// 	console.log(response);
 							// 	if (response) {

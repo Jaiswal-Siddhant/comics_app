@@ -47,5 +47,4 @@ exports.RegisterHandler = async (name, email, password, category, gender) => {
 	} catch (e) {
 		console.log(e);
 	}
-	
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useRef } from 'react';
 import {
 	StyleSheet,
 	Text,
@@ -7,8 +7,15 @@ import {
 	View,
 } from 'react-native';
 import HideKeyboard from '../components/HideKeyboard';
+import { AuthContext } from '../components/context';
+import { RegisterHandler } from '../../helpers/AuthHandler';
 
 const Register = ({ navigation }) => {
+	const { signIn } = useContext(AuthContext);
+	const userName = useRef('');
+	const email = useRef('');
+	const pass = useRef('');
+
 	return (
 		<View style={{ display: 'flex', width: '100%', height: '100%' }}>
 			<HideKeyboard>
@@ -19,6 +26,9 @@ const Register = ({ navigation }) => {
 							keyboardType='email-address'
 							textContentType='emailAddress'
 							style={{ fontSize: 17 }}
+							onChangeText={(text) => {
+								userName.current = text;
+							}}
 						/>
 					</View>
 					<View style={styles.inputContainer}>
@@ -27,6 +37,9 @@ const Register = ({ navigation }) => {
 							keyboardType='email-address'
 							textContentType='emailAddress'
 							style={{ fontSize: 17 }}
+							onChangeText={(text) => {
+								email.current = text;
+							}}
 						/>
 					</View>
 					<View style={styles.inputContainer}>
@@ -36,6 +49,9 @@ const Register = ({ navigation }) => {
 							secureTextEntry
 							autoCorrect={false}
 							multiline={false}
+							onChangeText={(text) => {
+								pass.current = text;
+							}}
 						/>
 					</View>
 					<TouchableOpacity
@@ -43,6 +59,14 @@ const Register = ({ navigation }) => {
 							...styles.inputContainer,
 							alignItems: 'center',
 							backgroundColor: 'black',
+						}}
+						onPress={() => {
+							// console.log(userName.current);
+							RegisterHandler(
+								userName.current,
+								email.current,
+								pass.current
+							);
 						}}>
 						<Text style={styles.loginBtn}>Register</Text>
 					</TouchableOpacity>

@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useEffect, useMemo, useReducer, useState } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import HomeScreen from './src/screens/HomeScreen';
 import Login from './src/screens/Login';
 import Register from './src/screens/Register';
+import { getDataFromStorage } from './src/components/RequestHandlers';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import { AuthContext } from './src/components/context';
 
 const Stack = createNativeStackNavigator();
 const options = {
@@ -14,51 +18,141 @@ const options = {
 	headerTitleAlign: 'center',
 };
 
-const App = () => {
-	const isLoggedIn = true;
+const App = ({ navigation }) => {
+	// const [isLoggedIn, setIsLoggedIn] = useState(false);
+	// const [isLoading, setIsLoading] = useState(true);
+	const initialLoginState = {
+		isLoading: true,
+		user: null,
+	};
+
+	loginReducer = (prevState, action) => {
+		switch (action.type) {
+			case 'LOGIN_SUCCESS':
+				return {
+					...prevState,
+					isLoading: false,
+					user: action.user,
+				};
+			case 'LOGIN_FAILURE':
+				return {
+					...prevState,
+					isLoading: false,
+					user: null,
+				};
+			case 'REGISTER_SUCCESS':
+				return {
+					...prevState,
+					isLoading: false,
+					user: action.user,
+				};
+			case 'REGISTER_FAILURE':
+				return {
+					...prevState,
+					isLoading: false,
+					user: null,
+				};
+
+			default:
+				return prevState;
+		}
+	};
+
+	const [loginState, dispatch] = useReducer(loginReducer, initialLoginState);
+
+	const authContext = useMemo(
+		() => ({
+			SignIn: (isLoading, user) => {
+				console.log(isLoading);
+				setLoginState.setIsLoading(isLoading);
+				setIsLoggedIn(true);
+				AsyncStorage.setItem('user', JSON.stringify(user)).then(() => {
+					dispatch({ type: 'LOGIN_SUCCESS', user });
+				});
+			},
+			SignOut: () => {
+				setIsLoading(false);
+				setIsLoggedIn(null);
+			},
+			SignUp: () => {
+				setLoginState.setIsLoading(false);
+				setIsLoggedIn(true);
+			},
+		}),
+		[]
+	);
+
+	useEffect(() => {
+		getDataFromStorage().then((user) => {
+			if (!user) {
+				console.log(user);
+				dispatch({ type: 'LOGIN_FAILURE', user: null });
+			} else {
+				dispatch({ type: 'LOGIN_SUCCESS', user });
+			}
+		});
+	}, []);
+
+	if (loginState.isLoading) {
+		return (
+			<View style={styles.loader}>
+				<ActivityIndicator size={60} />
+			</View>
+		);
+	}
 
 	return (
-		<NavigationContainer>
-			<Stack.Navigator>
-				{isLoggedIn ? (
-					<>
-						<Stack.Screen
-							name='HomeScreen'
-							component={HomeScreen}
-						/>
-						<Stack.Screen
-							name='Login'
-							component={Login}
-							options={options}
-						/>
-						<Stack.Screen
-							name='Register'
-							component={Register}
-							options={options}
-						/>
-					</>
-				) : (
-					<>
-						<Stack.Screen
-							name='Login'
-							component={Login}
-							options={options}
-						/>
-						<Stack.Screen
-							name='Register'
-							component={Register}
-							options={options}
-						/>
-						<Stack.Screen
-							name='HomeScreen'
-							component={HomeScreen}
-						/>
-					</>
-				)}
-			</Stack.Navigator>
-		</NavigationContainer>
+		<AuthContext.Provider value={authContext}>
+			<NavigationContainer>
+				<Stack.Navigator>
+					{loginState.user ? (
+						<>
+							<Stack.Screen
+								name='HomeScreen'
+								component={HomeScreen}
+							/>
+							<Stack.Screen
+								name='Login'
+								component={Login}
+								options={options}
+							/>
+							<Stack.Screen
+								name='Register'
+								component={Register}
+								options={options}
+							/>
+						</>
+					) : (
+						<>
+							<Stack.Screen
+								name='Login'
+								component={Login}
+								options={options}
+							/>
+							<Stack.Screen
+								name='Register'
+								component={Register}
+								options={options}
+							/>
+							<Stack.Screen
+								name='HomeScreen'
+								component={HomeScreen}
+							/>
+						</>
+					)}
+				</Stack.Navigator>
+			</NavigationContainer>
+		</AuthContext.Provider>
 	);
-	
 };
+
+const styles = StyleSheet.create({
+	loader: {
+		display: 'flex',
+		height: '100%',
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+});
 
 export default App;
