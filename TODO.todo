@@ -9,6 +9,6 @@ Todo:
   
 
 Archive:
-  ✔ Login persistance @done(23-01-12 23:43)
-  ✔ Using reducers for persistence @done(23-01-12 23:37)
-  ✔ Adding Bottom tab navigations for HomeScreen, Library, Notifications and Settings @done(23-01-12 23:37)
+  ✔ Login persistance @done(23-01-12)
+  ✔ Using reducers for persistence @done(23-01-12)
+  ✔ Adding Bottom tab navigations for HomeScreen, Library, Notifications and Settings @done(23-01-12)
