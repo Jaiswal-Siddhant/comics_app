@@ -1,0 +1,14 @@
+
+Todo:
+  
+  ☐ @high Register screen registration handler and reducer.
+  ☐ Creating Library, Notifications, Settings screens with @high for Library and Settings screen @low for Notifications as it will need changes in server
+  ☐ Adding Filters
+  ☐ Editing Feature for individual comic
+  ☐ Adding feature for sharing library 
+  
+
+Archive:
+  ✔ Login persistance @done(23-01-12 23:43)
+  ✔ Using reducers for persistence @done(23-01-12 23:37)
+  ✔ Adding Bottom tab navigations for HomeScreen, Library, Notifications and Settings @done(23-01-12 23:37)
