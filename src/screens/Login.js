@@ -14,7 +14,7 @@ const Login = ({ navigation }) => {
 	const [email, setEmail] = React.useState('');
 	const [password, setPassword] = React.useState('');
 	const [error, setError] = React.useState('');
-	const { signIn } = useContext(AuthContext);
+	const { SignIn } = useContext(AuthContext);
 
 	return (
 		<View style={{ display: 'flex', width: '100%', height: '100%' }}>
@@ -64,15 +64,20 @@ const Login = ({ navigation }) => {
 						}}
 						onPress={() => {
 							// Pass email pass to login handler
-							// LoginHandler(email, password).then((response) => {
-							// 	console.log(response);
-							// 	if (response) {
-							// 		setError('');
-							navigation.replace('HomeScreen');
-							// } else {
-							// 	setError('Invalid Email or Password');
-							// }
-							// });
+							LoginHandler(email, password)
+								.then((response) => {
+									console.log('response', response);
+									if (response._id) {
+										SignIn(response);
+										setError('');
+										navigation.replace(
+											'HomeScreenContainer'
+										);
+									} else {
+										setError('Invalid Email or Password');
+									}
+								})
+								.catch((err) => console.log(err));
 						}}>
 						<Text style={styles.loginBtn}>Login</Text>
 					</TouchableOpacity>

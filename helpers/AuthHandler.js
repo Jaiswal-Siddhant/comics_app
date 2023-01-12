@@ -1,36 +1,36 @@
 const { SERVER_URL } = require('../config/config');
 
 exports.LoginHandler = async (email, password) => {
-	if (!email || !password) {
-		return false;
-	}
 	try {
-		const data = { email, password };
-		const res = await fetch(SERVER_URL + 'login', {
+		if (!email || !password) {
+			return 'Enter Email and Password';
+		}
+
+		const response = await fetch(`http://192.168.29.81:8000/api/v1/login`, {
 			method: 'POST',
 			headers: {
 				'Accept': 'application/json',
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify(data),
+			body: JSON.stringify({ email, password }),
 		});
-		const json = await res.json();
 
-		return json.Success || false || json.Error;
-	} catch (e) {
-		console.log(e);
+		const json = await response.json();
+		return json;
+	} catch (error) {
+		console.log(error);
 	}
 };
 
-exports.RegisterHandler = async (name, email, password, category, gender) => {
-	console.log(name, email, password, category, gender);
-	if (!email || !password || !name || !category || !gender) {
+exports.RegisterHandler = async (userName, email, password) => {
+	console.log(userName, email, password);
+	if (!email || !password || !userName) {
 		return false;
 	}
-
+	let json;
 	try {
-		const data = { name, email, password, category, gender };
-		const res = await fetch(SERVER_URL + 'register', {
+		const data = { userName, email, password };
+		const res = await fetch('http://192.168.29.81:8000/api/v1//register', {
 			method: 'POST',
 			headers: {
 				'Accept': 'application/json',
@@ -38,13 +38,11 @@ exports.RegisterHandler = async (name, email, password, category, gender) => {
 			},
 			body: JSON.stringify(data),
 		});
-		const json = await res.json();
-		console.log(json);
-		if (json['Success:']) {
-			return true;
-		}
-		return false;
+		json = await res.json();
+		return json;
 	} catch (e) {
-		console.log(e);
+		console.log('e', e);
 	}
+
+	return json;
 };

@@ -8,6 +8,7 @@ import { getDataFromStorage } from './src/components/RequestHandlers';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { AuthContext } from './src/components/context';
+import TabNavigation from './src/components/TabNavigation';
 
 const Stack = createNativeStackNavigator();
 const options = {
@@ -19,14 +20,12 @@ const options = {
 };
 
 const App = ({ navigation }) => {
-	// const [isLoggedIn, setIsLoggedIn] = useState(false);
-	// const [isLoading, setIsLoading] = useState(true);
 	const initialLoginState = {
 		isLoading: true,
 		user: null,
 	};
 
-	loginReducer = (prevState, action) => {
+	const loginReducer = (prevState, action) => {
 		switch (action.type) {
 			case 'LOGIN_SUCCESS':
 				return {
@@ -62,21 +61,23 @@ const App = ({ navigation }) => {
 
 	const authContext = useMemo(
 		() => ({
-			SignIn: (isLoading, user) => {
-				console.log(isLoading);
-				setLoginState.setIsLoading(isLoading);
-				setIsLoggedIn(true);
-				AsyncStorage.setItem('user', JSON.stringify(user)).then(() => {
-					dispatch({ type: 'LOGIN_SUCCESS', user });
-				});
+			SignIn: async (user) => {
+				await AsyncStorage.setItem('user', JSON.stringify(user)).then(
+					() => {
+						dispatch({ type: 'LOGIN_SUCCESS', user });
+					}
+				);
 			},
 			SignOut: () => {
 				setIsLoading(false);
 				setIsLoggedIn(null);
 			},
-			SignUp: () => {
-				setLoginState.setIsLoading(false);
-				setIsLoggedIn(true);
+			SignUp: async (user) => {
+				await AsyncStorage.setItem('user', JSON.stringify(user)).then(
+					() => {
+						dispatch({ type: 'LOGIN_SUCCESS', user });
+					}
+				);
 			},
 		}),
 		[]
@@ -85,7 +86,7 @@ const App = ({ navigation }) => {
 	useEffect(() => {
 		getDataFromStorage().then((user) => {
 			if (!user) {
-				console.log(user);
+				console.log('LOGIN_FAILURE', user);
 				dispatch({ type: 'LOGIN_FAILURE', user: null });
 			} else {
 				dispatch({ type: 'LOGIN_SUCCESS', user });
@@ -108,8 +109,8 @@ const App = ({ navigation }) => {
 					{loginState.user ? (
 						<>
 							<Stack.Screen
-								name='HomeScreen'
-								component={HomeScreen}
+								name='HomeScreenContainer'
+								component={TabNavigation}
 							/>
 							<Stack.Screen
 								name='Login'
@@ -135,8 +136,8 @@ const App = ({ navigation }) => {
 								options={options}
 							/>
 							<Stack.Screen
-								name='HomeScreen'
-								component={HomeScreen}
+								name='HomeScreenContainer'
+								component={TabNavigation}
 							/>
 						</>
 					)}

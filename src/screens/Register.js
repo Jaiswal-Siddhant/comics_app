@@ -1,8 +1,9 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import {
 	StyleSheet,
 	Text,
 	TextInput,
+	ToastAndroid,
 	TouchableOpacity,
 	View,
 } from 'react-native';
@@ -15,6 +16,7 @@ const Register = ({ navigation }) => {
 	const userName = useRef('');
 	const email = useRef('');
 	const pass = useRef('');
+	const [err, setErr] = useState('');
 
 	return (
 		<View style={{ display: 'flex', width: '100%', height: '100%' }}>
@@ -54,6 +56,18 @@ const Register = ({ navigation }) => {
 							}}
 						/>
 					</View>
+					{err ? (
+						<View style={{}}>
+							<Text
+								style={{
+									...styles.registerText,
+									color: 'tomato',
+									paddingStart: 10,
+								}}>
+								{err}
+							</Text>
+						</View>
+					) : null}
 					<TouchableOpacity
 						style={{
 							...styles.inputContainer,
@@ -66,7 +80,19 @@ const Register = ({ navigation }) => {
 								userName.current,
 								email.current,
 								pass.current
-							);
+							)
+								.then((response) => {
+									if (response.Error) {
+										setErr(response.Error);
+										return;
+									}
+								})
+								.catch((error) => {
+									ToastAndroid.show(
+										'Something went wrong',
+										ToastAndroid.SHORT
+									);
+								});
 						}}>
 						<Text style={styles.loginBtn}>Register</Text>
 					</TouchableOpacity>
