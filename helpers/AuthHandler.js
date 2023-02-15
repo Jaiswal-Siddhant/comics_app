@@ -6,7 +6,7 @@ exports.LoginHandler = async (email, password) => {
 			return 'Enter Email and Password';
 		}
 
-		const response = await fetch(`http://192.168.29.81:8000/api/v1/login`, {
+		const response = await fetch(`${SERVER_URL}/login`, {
 			method: 'POST',
 			headers: {
 				'Accept': 'application/json',
@@ -30,7 +30,7 @@ exports.RegisterHandler = async (userName, email, password) => {
 	let json;
 	try {
 		const data = { userName, email, password };
-		const res = await fetch('http://192.168.29.81:8000/api/v1//register', {
+		const res = await fetch(`${SERVER_URL}/register`, {
 			method: 'POST',
 			headers: {
 				'Accept': 'application/json',

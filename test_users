@@ -1,0 +1,11 @@
+{
+    "__v": 0,
+    "_id": "63ecee6007d81aaf38508435",
+    "avatar": {
+        "public_id": "sample ID",
+        "url": "sampleURI"
+    },
+    "email": "ss@ss.com",
+    "password": "asdfghjkl",
+    "userName": "Ssss"
+}

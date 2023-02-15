@@ -24,6 +24,7 @@ const Login = ({ navigation }) => {
 						<TextInput
 							placeholder='Email Address*'
 							keyboardType='email-address'
+							autoCapitalize={false}
 							textContentType='emailAddress'
 							style={{ fontSize: 17, padding: 5 }}
 							onChangeText={(val) => {

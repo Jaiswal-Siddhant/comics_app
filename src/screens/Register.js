@@ -38,6 +38,7 @@ const Register = ({ navigation }) => {
 							placeholder='Email Address*'
 							keyboardType='email-address'
 							textContentType='emailAddress'
+							autoCapitalize={false}
 							style={{ fontSize: 17 }}
 							onChangeText={(text) => {
 								email.current = text;
@@ -75,7 +76,11 @@ const Register = ({ navigation }) => {
 							backgroundColor: 'black',
 						}}
 						onPress={() => {
-							// console.log(userName.current);
+							console.log(
+								userName.current,
+								email.current,
+								pass.current
+							);
 							RegisterHandler(
 								userName.current,
 								email.current,
@@ -86,6 +91,7 @@ const Register = ({ navigation }) => {
 										setErr(response.Error);
 										return;
 									}
+									console.log(response);
 								})
 								.catch((error) => {
 									ToastAndroid.show(
