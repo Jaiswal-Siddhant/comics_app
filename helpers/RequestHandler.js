@@ -1,7 +1,7 @@
 const { SERVER_URL, DEMO_USER } = require('../config/config');
 
 exports.fetchData = async () => {
-	const data2 = await fetch('http://192.168.29.81:8000/api/v1/getListById', {
+	const data2 = await fetch(`${SERVER_URL}/getListById`, {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify({
@@ -12,3 +12,18 @@ exports.fetchData = async () => {
 
 	return data;
 };
+
+// Complete this function
+// exports.addNewComicToListWithID = async (comic) => {
+// 	const user = await getDataFromStorage();
+// 	const data = await fetch(`${SERVER_URL}/addComicToList`, {
+// 		method: 'POST',
+// 		headers: { 'Content-Type': 'application/json' },
+// 		body: JSON.stringify({
+// 			user: user,
+// 			listType: {
+// 				_id: comic._id,
+// 			},
+// 		}),
+// 	});
+// };

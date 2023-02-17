@@ -1,6 +1,13 @@
 import { useEffect, useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { DEMO_USER, SERVER_URL } from '../../config/config';
+import {
+	Image,
+	ScrollView,
+	StyleSheet,
+	Text,
+	TouchableOpacity,
+	View,
+} from 'react-native';
+import { COLOR_PALLETS } from '../../config/config';
 import { fetchData } from '../../helpers/RequestHandler';
 import AddButton from '../components/AddButton';
 import DetailModal from '../components/DetailModal';
@@ -15,6 +22,7 @@ export default function HomeScreen({ navigation }) {
 		fetchData()
 			.then((data) => {
 				setListType(data.listsType);
+				console.log(data.listsType);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -26,19 +34,32 @@ export default function HomeScreen({ navigation }) {
 			{/* Design filters */}
 			<Filters />
 
-			{listType.map((list) => {
-				return (
-					<View key={list._id}>
-						<Text style={styles.listNameTxt}>
-							In #{list.listName}
-						</Text>
+			<ScrollView>
+				{listType.map((list, index) => {
+					return (
+						<View
+							key={list._id}
+							style={{
+								backgroundColor:
+									COLOR_PALLETS[index % COLOR_PALLETS.length],
+								margin: 10,
+								borderRadius: 10,
+							}}>
+							<Text style={styles.listNameTxt}>
+								#{list.listName}
+							</Text>
 
-						{list.content.map((item, index) => {
-							return <List item={item} key={index}></List>;
-						})}
-					</View>
-				);
-			})}
+							{list.content.map((item, index) => {
+								return (
+									<View>
+										<List item={item} key={index}></List>
+									</View>
+								);
+							})}
+						</View>
+					);
+				})}
+			</ScrollView>
 			<TouchableOpacity
 				style={styles.addBtn}
 				onPress={() => {
@@ -61,7 +82,7 @@ const styles = StyleSheet.create({
 	addBtn: {
 		display: 'flex',
 		position: 'absolute',
-		bottom: '8%',
+		bottom: '3%',
 		right: '10%',
 		justifyContent: 'center',
 		alignItems: 'center',
@@ -71,5 +92,4 @@ const styles = StyleSheet.create({
 		fontWeight: '600',
 		fontSize: 17,
 	},
-	
 });

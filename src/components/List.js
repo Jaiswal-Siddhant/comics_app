@@ -1,23 +1,28 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { getDay, getMonth, getYear } from '../../helpers/DateHandler';
 
 const List = ({ item }) => {
 	return (
-		<TouchableOpacity style={styles.listWrapper}>
-			<View style={styles.subView}>
-				<Text style={styles.comicNameTxt}>{item.comicName}</Text>
-				<Text style={styles.mt10}>
-					Completion: {item.chaptersRead}/{item.totalChapters}
+		<View>
+			<View style={styles.listWrapper}>
+				<View style={styles.subView}>
+					<Text style={styles.comicNameTxt}>{item.comicName}</Text>
+					<Text style={styles.comicDescription} numberOfLines={2}>
+						Description: {item.comicDescription}
+					</Text>
+					<Text style={styles.mt10}>
+						Completion: {item.chaptersRead}/{item.totalChapters}
+					</Text>
+				</View>
+				<Text style={{ paddingTop: 5 }}>
+					Last Read:{' '}
+					{`${getDay(item.lastTimeRead)}/${getMonth(
+						item.lastTimeRead
+					)}/${getYear(item.lastTimeRead)}`}
 				</Text>
 			</View>
-			<Text style={{ paddingTop: 5 }}>
-				Last Read:{' '}
-				{`${getDay(item.lastTimeRead)}/${getMonth(
-					item.lastTimeRead
-				)}/${getYear(item.lastTimeRead)}`}
-			</Text>
-		</TouchableOpacity>
+		</View>
 	);
 };
 
@@ -28,11 +33,12 @@ const styles = StyleSheet.create({
 		fontSize: 15,
 	},
 	listWrapper: {
-		height: 100,
-		backgroundColor: 'skyblue',
+		height: 'auto',
 		margin: 5,
 		padding: 10,
 		display: 'flex',
+		borderTopColor: 'white',
+		borderTopWidth: 1,
 	},
 	subView: {
 		display: 'flex',
@@ -45,10 +51,14 @@ const styles = StyleSheet.create({
 		fontWeight: '600',
 		fontSize: 16,
 	},
+	comicDescription: {
+		width: '95%',
+		fontSize: 14,
+		paddingTop: 5,
+	},
 	mt10: {
 		marginTop: 10,
 	},
-	
 });
 
 export default List;

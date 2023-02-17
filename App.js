@@ -90,6 +90,7 @@ const App = ({ navigation }) => {
 				dispatch({ type: 'LOGIN_FAILURE', user: null });
 			} else {
 				dispatch({ type: 'LOGIN_SUCCESS', user });
+				console.log('user', user, '\n\n');
 			}
 		});
 	}, []);
@@ -110,6 +111,7 @@ const App = ({ navigation }) => {
 						<>
 							<Stack.Screen
 								name='HomeScreenContainer'
+								options={{ headerTitle: 'Home' }}
 								component={TabNavigation}
 							/>
 							<Stack.Screen
@@ -137,6 +139,7 @@ const App = ({ navigation }) => {
 							/>
 							<Stack.Screen
 								name='HomeScreenContainer'
+								options={{ headerTitle: 'Home' }}
 								component={TabNavigation}
 							/>
 						</>
