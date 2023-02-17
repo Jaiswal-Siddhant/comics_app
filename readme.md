@@ -17,6 +17,6 @@ And I think thats all. Feel free to reach out to me or our contributors to parti
 
 <br/>
 
-![BETA_APP](imgs/beta_UI.jpeg)
+<img src="https://i.postimg.cc/t4Zjb8wF/beta-UI.jpg" alt="BETA_APP" />
 
-### <span style="color:tomato"> ⚠️ NOTICE: This project is currently under development plus I am not good at UI 😅</span>.
+### <span style="color:tomato"> ⚠️ NOTICE: This project is currently under development plus I am not good at UI 😅</span>
