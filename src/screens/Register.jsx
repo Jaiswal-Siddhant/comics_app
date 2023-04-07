@@ -10,6 +10,7 @@ import {
 import HideKeyboard from '../components/HideKeyboard';
 import { AuthContext } from '../components/context';
 import { RegisterHandler } from '../../helpers/AuthHandler';
+import { COLOURS } from '../../helpers/misc';
 
 const Register = ({ navigation }) => {
 	const { signIn } = useContext(AuthContext);
@@ -73,7 +74,7 @@ const Register = ({ navigation }) => {
 						style={{
 							...styles.inputContainer,
 							alignItems: 'center',
-							backgroundColor: 'black',
+							backgroundColor: COLOURS.primary,
 						}}
 						onPress={() => {
 							console.log(
@@ -111,7 +112,7 @@ const Register = ({ navigation }) => {
 				<TouchableOpacity
 					style={styles.registerBtnContainer}
 					onPress={() => {
-						navigation.replace('Login');
+						navigation.pop();
 					}}>
 					<Text style={styles.registerBtn}>Login</Text>
 				</TouchableOpacity>
@@ -159,10 +160,10 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		borderRadius: 7,
 		borderWidth: 2,
-		borderColor: 'grey',
+		borderColor: COLOURS.primary,
 	},
 	registerBtn: {
-		color: 'grey',
+		color: COLOURS.primary,
 		fontSize: 17,
 		fontWeight: '600',
 		margin: 10,

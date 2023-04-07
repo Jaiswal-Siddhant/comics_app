@@ -2,7 +2,7 @@ import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { getDay, getMonth, getYear } from '../../helpers/DateHandler';
 
-const List = ({ item }) => {
+const ListComponent = ({ item }) => {
 	return (
 		<View>
 			<View style={styles.listWrapper}>
@@ -61,4 +61,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default List;
+export default ListComponent;

@@ -2,3 +2,5 @@ node_modules/
 .expo/
 # macOS
 .DS_Store
+.gitignore
+config/*

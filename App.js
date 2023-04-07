@@ -51,7 +51,6 @@ const App = ({ navigation }) => {
 					isLoading: false,
 					user: null,
 				};
-
 			default:
 				return prevState;
 		}

@@ -5,5 +5,16 @@ const { SERVER_URL } = require('../../config/config');
 
 exports.getDataFromStorage = async () => {
 	let data = await AsyncStorage.getItem('user');
-	return data;
+	const user = await JSON.parse(data);
+	return user;
+};
+
+exports.removeUserFromStorage = async () => {
+	try {
+		await AsyncStorage.removeItem('user');
+		return true;
+	} catch (e) {
+		console.log(e);
+		return false;
+	}
 };

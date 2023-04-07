@@ -3,6 +3,7 @@ import {
 	Button,
 	Modal,
 	SafeAreaView,
+	ScrollView,
 	StyleSheet,
 	Text,
 	TextInput,
@@ -63,7 +64,6 @@ const DetailModal = ({ isVisible, setIsVisible }) => {
 							<View style={{ marginTop: 20 }}>
 								<TextInput
 									placeholder='Comic Type'
-									defaultValue='Watch later'
 									style={{
 										backgroundColor: '#f6f2e7',
 										height: 40,
@@ -148,12 +148,6 @@ const DetailModal = ({ isVisible, setIsVisible }) => {
 								</View>
 							</View>
 							<View style={{ marginTop: 0 }}>
-								{/* <DatePicker
-								
-								style={{}}
-								onSelectedChange={(date) =>
-									setSelectedDate(date)
-								}></DatePicker> */}
 								<Text
 									style={{
 										color: 'grey',
@@ -164,16 +158,7 @@ const DetailModal = ({ isVisible, setIsVisible }) => {
 								</Text>
 								<View>
 									<DatePicker
-										options={{
-											backgroundColor: '#090C08',
-											textHeaderColor: '#FFA25B',
-											textDefaultColor: '#F6E7C1',
-											selectedTextColor: '#fff',
-											mainColor: '#F4722B',
-											textSecondaryColor: '#D6C7A1',
-											borderColor:
-												'rgba(122, 146, 165, 0.1)',
-										}}
+										options={styles.datepickerStyle}
 										selected={DateToday}
 										mode='calendar'
 										minuteInterval={30}
@@ -264,6 +249,15 @@ const styles = StyleSheet.create({
 		padding: 7,
 		paddingHorizontal: 3,
 		fontWeight: '550',
+	},
+	datepickerStyle: {
+		backgroundColor: '#090C08',
+		textHeaderColor: '#FFA25B',
+		textDefaultColor: '#F6E7C1',
+		selectedTextColor: '#fff',
+		mainColor: '#F4722B',
+		textSecondaryColor: '#D6C7A1',
+		borderColor: 'rgba(122,146,165,0.1)',
 	},
 });
 

@@ -9,6 +9,7 @@ import {
 import HideKeyboard from '../components/HideKeyboard';
 import { LoginHandler } from '../../helpers/AuthHandler';
 import { AuthContext } from '../components/context';
+import { COLOURS } from '../../helpers/misc';
 
 const Login = ({ navigation }) => {
 	const [email, setEmail] = React.useState('');
@@ -24,7 +25,7 @@ const Login = ({ navigation }) => {
 						<TextInput
 							placeholder='Email Address*'
 							keyboardType='email-address'
-							autoCapitalize={false}
+							autoCapitalize={'none'}
 							textContentType='emailAddress'
 							style={{ fontSize: 17, padding: 5 }}
 							onChangeText={(val) => {
@@ -61,7 +62,7 @@ const Login = ({ navigation }) => {
 						style={{
 							...styles.inputContainer,
 							alignItems: 'center',
-							backgroundColor: 'black',
+							backgroundColor: COLOURS.primary,
 						}}
 						onPress={() => {
 							// Pass email pass to login handler
@@ -137,10 +138,10 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		borderRadius: 7,
 		borderWidth: 2,
-		borderColor: 'grey',
+		borderColor: COLOURS.primary,
 	},
 	registerBtn: {
-		color: 'grey',
+		color: COLOURS.primary,
 		fontSize: 17,
 		fontWeight: '600',
 		margin: 10,
