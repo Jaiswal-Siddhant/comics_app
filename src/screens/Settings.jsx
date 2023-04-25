@@ -8,17 +8,12 @@ import { COLOURS } from '../../helpers/misc';
 
 const KVPair = ({ Key, val }) => {
 	return (
-		<View
-			style={{
-				display: 'flex',
-				width: '70%',
-				flexDirection: 'row',
-				alignItems: 'center',
-				justifyContent: 'center',
-			}}>
-			<Text style={{ flex: 1 }}>{Key} </Text>
-			<Text style={{ flex: 0.3 }}>: </Text>
-			<Text style={{ flex: 5 }}>{val}</Text>
+		<View style={styles.userInfoWrapper}>
+			<Text style={[{ flex: 1 }, styles.textStyle]}>{Key} </Text>
+			<Text style={[{ flex: 0.3 }, styles.textStyle]}>: </Text>
+			<Text numberOfLines={1} style={[{ flex: 5 }, styles.textStyle]}>
+				{val}
+			</Text>
 		</View>
 	);
 };
@@ -56,14 +51,17 @@ const Settings = ({ navigation }) => {
 							borderRadius: 200,
 						}}
 					/>
-					<KVPair Key={'User'} val={user.userName} />
-					<KVPair Key={'Email'} val={user.email} />
-
+					<View
+						style={{
+							marginTop: 20,
+						}}>
+						<KVPair Key={'User'} val={user.userName} />
+						<KVPair Key={'Email'} val={user.email} />
+					</View>
 					<TouchableOpacity
 						style={styles.logOutBtnContainer}
 						onPress={() => {
 							removeUserFromStorage();
-							navigation.navigate('Login');
 						}}>
 						<Text
 							style={{
@@ -92,7 +90,17 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		borderRadius: 5,
 		marginLeft: 20,
-		marginTop: 100,
+		marginTop: 50,
+	},
+	textStyle: {
+		fontSize: 16,
+	},
+	userInfoWrapper: {
+		display: 'flex',
+		width: '70%',
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'center',
 	},
 });
 
