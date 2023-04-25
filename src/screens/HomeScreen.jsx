@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
 	Image,
 	ScrollView,
@@ -14,23 +14,30 @@ import DetailModal from '../components/DetailModal';
 import Filters from '../components/Filters';
 import ListComponent from '../components/ListComponent';
 import { Entypo } from '@expo/vector-icons';
+import DisplayList from '../components/DisplayList';
 
 export default function HomeScreen({ navigation }) {
 	const [isVisible, setIsVisible] = useState(false);
 	const [listType, setListType] = useState([]);
+	const [library, setLibrary] = useState([]);
 
 	useEffect(() => {
 		fetchData()
 			.then((data) => {
 				setListType(data.listsType);
-				// data.listsType.forEach((list) => {
-				// 	console.log('data.listsType', list.listName);
-				// });
 			})
 			.catch((error) => {
 				console.log(error);
 			});
 	}, [isVisible]);
+
+	React.useEffect(() => {
+		let temp = new Set();
+		listType.forEach((list) => {
+			temp.add(list.listName);
+		});
+		setLibrary([...temp]);
+	}, [listType]);
 
 	return (
 		<View style={styles.container}>
@@ -40,44 +47,11 @@ export default function HomeScreen({ navigation }) {
 			<ScrollView style={styles.ScrollView}>
 				{listType.map((list, index) => {
 					return (
-						<View
-							key={list._id}
-							style={{
-								backgroundColor:
-									COLOR_PALLETS[index % COLOR_PALLETS.length],
-								margin: 10,
-								borderRadius: 10,
-							}}>
-							<View
-								style={{
-									display: 'flex',
-									flexDirection: 'row',
-									alignItems: 'center',
-									justifyContent: 'space-between',
-								}}>
-								<Text style={styles.listNameTxt}>
-									#{list.listName}
-								</Text>
-								<TouchableOpacity onPress={() => {}}>
-									<Entypo
-										style={{ paddingRight: 25 }}
-										name='chevron-down'
-										size={24}
-										color='blue'
-									/>
-								</TouchableOpacity>
-							</View>
-
-							{list.content.map((item, index) => {
-								return (
-									<View key={item + index}>
-										<ListComponent
-											item={item}
-											key={index}></ListComponent>
-									</View>
-								);
-							})}
-						</View>
+						<DisplayList
+							library={library}
+							list={list}
+							index={index}
+						/>
 					);
 				})}
 			</ScrollView>
@@ -89,7 +63,11 @@ export default function HomeScreen({ navigation }) {
 				<AddButton />
 			</TouchableOpacity>
 
-			<DetailModal isVisible={isVisible} setIsVisible={setIsVisible} />
+			<DetailModal
+				isVisible={isVisible}
+				setIsVisible={setIsVisible}
+				library={library}
+			/>
 		</View>
 	);
 }
