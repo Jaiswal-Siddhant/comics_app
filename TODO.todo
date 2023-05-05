@@ -1,6 +1,7 @@
 
 Todo:
-  ☐ integrate addNewComic to detailModal
+  ☐ integrate addNewComic to detailModal.
+  ☐ Add profile section in settings.
   ☐ Creating Library, Notifications, Settings screens with @high for Library and Settings screen @low for Notifications as it will need changes in server
   ☐ Adding Filters
   ☐ Editing Feature for individual comic
