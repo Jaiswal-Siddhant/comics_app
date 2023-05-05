@@ -16,7 +16,7 @@ const ListComponent = ({ item, visibility, library = [] }) => {
 		<>
 			<TouchableWithoutFeedback
 				onPress={() => {
-					setIsVisible(!visibility);
+					setIsVisible(!isVisible);
 				}}
 				style={{ display: visibility ? 'flex' : 'none' }}>
 				<View style={styles.listWrapper}>
@@ -44,6 +44,7 @@ const ListComponent = ({ item, visibility, library = [] }) => {
 				setIsVisible={setIsVisible}
 				data={item}
 				library={library}
+				isEdit={true}
 			/>
 		</>
 	);

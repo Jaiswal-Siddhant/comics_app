@@ -1,16 +1,17 @@
 
 Todo:
-  ☐ Add OnPress event for DetailModel `Add` button
-  ☐ @high Register screen registration handler and reducer.
+  ☐ integrate addNewComic to detailModal
   ☐ Creating Library, Notifications, Settings screens with @high for Library and Settings screen @low for Notifications as it will need changes in server
   ☐ Adding Filters
   ☐ Editing Feature for individual comic
   ☐ Adding feature for sharing library 
   
-
-Archive:
-  ✔ Login persistance @done(23-01-12)
-  ✔ Using reducers for persistence @done(23-01-12)
-  ✔ Adding Bottom tab navigations for HomeScreen, Library, Notifications and Settings @done(23-01-12)
-  ✔ Fixed Registration link @done(23-02-15 23:57)
-  ✔ UI update, Added DatePicker and server changes @done(23-02-17 20:50)
+  
+  Archive:
+    ✔ Login persistance @done(23-01-12)
+    ✔ Using reducers for persistence @done(23-01-12)
+    ✔ Adding Bottom tab navigations for HomeScreen, Library, Notifications and Settings @done(23-01-12)
+    ✔ Fixed Registration link @done(23-02-15 23:57)
+    ✔ UI update, Added DatePicker and server changes @done(23-02-17 20:50)
+    ✔ Add OnPress event for DetailModel `Add` button @done(23-05-05 22:02)
+    ✔ @high Register screen registration handler and reducer. @done(23-05-05 22:02)

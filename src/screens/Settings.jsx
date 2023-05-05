@@ -22,7 +22,10 @@ const Settings = ({ navigation }) => {
 	const [user, setUser] = React.useState({});
 
 	React.useEffect(() => {
-		getDataFromStorage().then((usr) => setUser(usr));
+		getDataFromStorage().then((usr) => {
+			// console.log('user from db', usr);
+			setUser(usr);
+		});
 	}, []);
 
 	// React.useEffect(() => {
@@ -42,9 +45,14 @@ const Settings = ({ navigation }) => {
 						paddingTop: 20,
 					}}>
 					<Image
-						source={{
-							uri: user.avatar.url,
-						}}
+						source={
+							user.avatar.url &&
+							!user.avatar.url.includes('sampleURI')
+								? {
+										uri: user?.avatar?.url,
+								  }
+								: require('../../imgs/user.png')
+						}
 						style={{
 							width: 100,
 							height: 100,
@@ -61,7 +69,9 @@ const Settings = ({ navigation }) => {
 					<TouchableOpacity
 						style={styles.logOutBtnContainer}
 						onPress={() => {
-							removeUserFromStorage();
+							removeUserFromStorage().then(() => {
+								navigation.replace('Login');
+							});
 						}}>
 						<Text
 							style={{

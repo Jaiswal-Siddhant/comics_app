@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
+	Dimensions,
 	Image,
 	ScrollView,
 	StyleSheet,
@@ -24,7 +25,7 @@ export default function HomeScreen({ navigation }) {
 	useEffect(() => {
 		fetchData()
 			.then((data) => {
-				setListType(data.listsType);
+				setListType(data?.listsType || []);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -42,18 +43,25 @@ export default function HomeScreen({ navigation }) {
 	return (
 		<View style={styles.container}>
 			{/* Design filters */}
-			<Filters />
+			{/* <Filters /> */}
 
 			<ScrollView style={styles.ScrollView}>
-				{listType.map((list, index) => {
-					return (
-						<DisplayList
-							library={library}
-							list={list}
-							index={index}
-						/>
-					);
-				})}
+				{listType.length ? (
+					listType.map((list, index) => {
+						return (
+							<DisplayList
+								key={index}
+								library={library}
+								list={list}
+								index={index}
+							/>
+						);
+					})
+				) : (
+					<View style={styles.noListText}>
+						<Text>Add items to start</Text>
+					</View>
+				)}
 			</ScrollView>
 			<TouchableOpacity
 				style={styles.addBtn}
@@ -80,6 +88,8 @@ const styles = StyleSheet.create({
 	},
 	ScrollView: {
 		padding: 5,
+		width: '100%',
+		height: '100%',
 	},
 	addBtn: {
 		display: 'flex',
@@ -93,5 +103,12 @@ const styles = StyleSheet.create({
 		padding: 10,
 		fontWeight: '600',
 		fontSize: 17,
+	},
+	noListText: {
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'center',
+		height: Dimensions.get('window').height - 200,
+		flex: 1,
 	},
 });

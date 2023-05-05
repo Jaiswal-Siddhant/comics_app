@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 import { COLOR_PALLETS } from '../../config/config';
+import DetailModal from './DetailModal';
 
 const DisplayList = ({ list, index, library = [] }) => {
 	const [isVisible, setIsVisible] = React.useState(true);
@@ -35,10 +36,7 @@ const DisplayList = ({ list, index, library = [] }) => {
 					}}>
 					<Text style={styles.listNameTxt}>{list.listName}</Text>
 				</TouchableOpacity>
-				<TouchableOpacity
-					onPress={() => {
-						setIsVisible(!isVisible);
-					}}>
+				<TouchableOpacity>
 					<Entypo
 						style={{ paddingRight: 25 }}
 						name={isVisible ? 'chevron-up' : 'chevron-down'}
@@ -47,23 +45,19 @@ const DisplayList = ({ list, index, library = [] }) => {
 					/>
 				</TouchableOpacity>
 			</View>
-
 			<View
 				style={{
 					display: isVisible ? 'flex' : 'none',
-				}}
-				onTouchEnd={() => {
-					setIsVisible(!isVisible);
 				}}>
 				{list.content.map((item, index) => {
 					return (
-						<View key={item + index}>
+						<TouchableOpacity key={item + index}>
 							<ListComponent
 								item={{ ...item, listType: list.listName }}
 								key={index}
 								library={library}
 								visibility={isVisible}></ListComponent>
-						</View>
+						</TouchableOpacity>
 					);
 				})}
 			</View>

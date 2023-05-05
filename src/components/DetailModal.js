@@ -17,7 +17,13 @@ import DatePicker from 'react-native-modern-datepicker';
 import { getDay, getMonth, getYear } from '../../helpers/DateHandler';
 import { Picker } from '@react-native-picker/picker';
 
-const DetailModal = ({ data = {}, isVisible, setIsVisible, library = [] }) => {
+const DetailModal = ({
+	data = {},
+	isVisible,
+	setIsVisible,
+	library = [],
+	isEdit,
+}) => {
 	const [comicName, setComicName] = React.useState('');
 	const [comicDescription, setComicDescription] = React.useState('');
 	const [chaptersRead, setChaptersRead] = React.useState(0);
@@ -27,9 +33,9 @@ const DetailModal = ({ data = {}, isVisible, setIsVisible, library = [] }) => {
 	const DateToday = `${getYear()}-${getMonth()}-${getDay()}`;
 	const pickerRef = React.useRef();
 
-	useEffect(() => {
-		console.log(data);
-	}, [isVisible]);
+	// useEffect(() => {
+	// 	console.log(data);
+	// }, [isVisible]);
 
 	function open() {
 		pickerRef.current.focus();
@@ -134,6 +140,7 @@ const DetailModal = ({ data = {}, isVisible, setIsVisible, library = [] }) => {
 											mode='dropdown'>
 											{library.map((item, index) => (
 												<Picker.Item
+													key={index}
 													label={item}
 													value={item}
 												/>
@@ -196,8 +203,6 @@ const DetailModal = ({ data = {}, isVisible, setIsVisible, library = [] }) => {
 										minuteInterval={30}
 										style={{
 											borderRadius: 10,
-											// width: '100%%',
-											// height: '50%',
 										}}
 										onSelectedChange={(date) =>
 											setSelectedDate(date)
@@ -217,7 +222,7 @@ const DetailModal = ({ data = {}, isVisible, setIsVisible, library = [] }) => {
 											);
 										}}>
 										<Text style={styles.addBtnTextStyle}>
-											Add
+											{isEdit ? 'Edit' : 'Add'}
 										</Text>
 									</TouchableOpacity>
 								</View>

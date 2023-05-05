@@ -36,7 +36,10 @@ const Login = ({ navigation }) => {
 					<View style={styles.inputContainer}>
 						<TextInput
 							placeholder='Password*'
-							style={{ fontSize: 17, padding: 5 }}
+							style={{
+								fontSize: 17,
+								padding: 5,
+							}}
 							secureTextEntry
 							autoCorrect={false}
 							multiline={false}
@@ -105,7 +108,7 @@ const styles = StyleSheet.create({
 		margin: 20,
 		padding: 10,
 		backgroundColor: '#f9f9f9',
-		shadowColor: '#000000',
+		shadowColor: '#fff',
 		shadowOpacity: 0.8,
 		shadowRadius: 2,
 		shadowOffset: {
